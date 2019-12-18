@@ -5,12 +5,13 @@ from service_objects.services import Service
 class CollegeService(Service):
     def process(self):
         clg_data = self.data
-        data = clg_data.get('college_data')
+        data = clg_data.get("college_data")
 
-        clg_obj = College.objects.create(college_name=data.get('college_name'),
-                                         city=data.get('city'),
-                                         state=data.get('state')
-                                         )
+        clg_obj = College.objects.create(
+            college_name=data.get("college_name"),
+            city=data.get("city"),
+            state=data.get("state"),
+        )
         return clg_data
 
 
@@ -37,7 +38,8 @@ class DeleteCollegeService(Service):
 
 class PutCollegeService(Service):
     def process(self):
-        college_put = self.data                                    #data received from views
+
+        college_put = self.data  # data received from views
         clg = college_put.get('data')
         pk = clg.get('id')
 
@@ -56,7 +58,7 @@ class PutCollegeService(Service):
 class GetStudentService(Service):
     def process(self):
         std = self.data
-        pk = std.get('pk')
+        pk = std.get("pk")
         if pk:
             student_gt = Student.objects.get(id=pk)
         else:
@@ -70,15 +72,16 @@ class GetStudentService(Service):
 class CreateStudentService(Service):
     def process(self):
         data = self.data
-        student_data = data.get('student_data')
+        student_data = data.get("student_data")
         # get college object or college_id from college model or clg_service using student_data
-        clg_obj = College.objects.get(id=data.get('student_data').get('college'))
-        student_obj = Student.objects.create(college=clg_obj,
-                                             first_name=student_data.get('first_name'),
-                                             last_name=student_data.get('last_name'),
-                                             branch=student_data.get('branch'),
-                                             dob=student_data.get('dob')
-                                             )
+        clg_obj = College.objects.get(id=data.get("student_data").get("college"))
+        student_obj = Student.objects.create(
+            college=clg_obj,
+            first_name=student_data.get("first_name"),
+            last_name=student_data.get("last_name"),
+            branch=student_data.get("branch"),
+            dob=student_data.get("dob"),
+        )
 
         return student_obj
 
@@ -86,16 +89,15 @@ class CreateStudentService(Service):
 class GetRelatedStudentService(Service):
     def process(self):
         data = self.data
-        pk = data.get('pk')
+        pk = data.get("pk")
 
-        related_name = Student.objects.filter(college_id=pk)           # get students related to a particular college id
+        related_name = Student.objects.filter(college_id=pk)  # get students related to a particular college id
         return related_name
 
     # query--> related_clg = Student.objects.filter(college_id=5)
 
 
-
-
-
-
-
+class GetRegisterService(Service):
+    def process(self):
+        student_register = Student.objects.all()
+        return student_register
