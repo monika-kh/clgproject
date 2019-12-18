@@ -71,7 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'college.wsgi.application'
 
-
+AUTH_USER_MODEL = 'student_app.Student'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
