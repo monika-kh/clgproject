@@ -22,9 +22,8 @@ class Student(AbstractUser):
     # last_name = models.CharField(max_length=200)
     branch = models.CharField(max_length=50)
     address = models.TextField(max_length=100, null=True, blank=True)
-    college = models.ForeignKey(College, on_delete=models.CASCADE,null=True, blank=True, related_name='college_student')
+    college = models.ForeignKey(College, on_delete=models.CASCADE, null=True, blank=True, related_name='college_student')
     dob = models.DateField(auto_now=True)
-    password1 = models.CharField(max_length=50, unique=True)
 
     class Meta:
         db_table = 'Student'
