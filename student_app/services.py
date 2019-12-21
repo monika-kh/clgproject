@@ -80,7 +80,7 @@ class CreateStudentService(Service):
         #     last_name=student_data.get("last_name"),
         #     branch=student_data.get("branch"),
         #     dob=student_data.get("dob"),
-        # )
+        # )                                                              #obj created when abstractuser is not used
         student_obj = Student.objects.create(
             college=clg_obj,
             first_name=student_data.get('college_student')[0].get('first_name'),
@@ -90,15 +90,12 @@ class CreateStudentService(Service):
             username=student_data.get('college_student')[0].get("username"),
             email=student_data.get('college_student')[0].get("email"),
             address=student_data.get('college_student')[0].get("address"),
+            #password=student_data.get('college_student')[0].get("password"),
             #college=student_data.get('college_student')[0].get("college")
         )
-
-        password = student_obj.set_password('password')
-        password.save()
-
-
-
-
+        student_obj.set_password("password")
+        student_obj.save()
+        return student_obj
 
 
 class GetRelatedStudentService(Service):
@@ -117,6 +114,7 @@ class DeleteRelatedStudentService(Service):
         pk = dlt_data.get('pk')
         std_dlt = Student.objects.get(pk=pk)
         std_dlt.delete()
+
 
 
 
