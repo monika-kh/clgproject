@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from .models import College, Student
 from .serializers import (
@@ -9,8 +11,8 @@ from .serializers import (
     RelatedCollegeSerializer,
     Student1Serializer,
     StudentSerializer,
-    StudentRegisterSerializer
-)
+    # StudentRegisterSerializer
+    LoginInSerializer)
 from .services import (
     CollegeService,
     CreateStudentService,
@@ -19,8 +21,8 @@ from .services import (
     GetRelatedStudentService,
     GetStudentService,
     PutCollegeService,
-    GetRegisterService,
-    CreateRegisterService,
+    # GetRegisterService,
+    # CreateRegisterService,
     DeleteRelatedStudentService
 )
 
@@ -66,6 +68,8 @@ class CollegeView(APIView):
 
 
 class StudentView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         student_data = request.data
         serializer = Student1Serializer(data=student_data)  # when obj is not created
@@ -89,23 +93,97 @@ class StudentView(APIView):
         return Response(data={"Message": "deleted"}, status=200)
 
 
-class RegisterView(APIView):
-    def get(self, request):
-        student_register = Student.objects.all()
-        student_get = GetRegisterService.execute({'student_register': student_register})           # get all data
-        serializer = StudentSerializer(student_get, many=True)
-        return Response(serializer.data)
+# class LogInView(APIView):
+#     def get(self, request):
+#         breakpoint()
+#         pass
 
-    def post(self, request):
-        register_data = request.data
-        serializer = StudentSerializer(data=request.data)  # when obj is not created
-        if serializer.is_valid(raise_exception=True):
-            student = CreateRegisterService.execute({"register_data": request.data})
 
-        #     ser1 = StudentSerializer(student)  # when obj is created
-        #     return Response(ser1.data, status=201)
-        # return Response(serializer.errors, status=400)
-        #
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class RegisterView(APIView):
+#     def get(self, request):
+#         student_register = Student.objects.all()
+#         student_get = GetRegisterService.execute({'student_register': student_register})           # get all data
+#         serializer = StudentSerializer(student_get, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         register_data = request.data
+#         serializer = StudentSerializer(data=request.data)  # when obj is not created
+#         if serializer.is_valid(raise_exception=True):
+#             student = CreateRegisterService.execute({"register_data": request.data})
+#             ser1 = StudentSerializer(student)  # when obj is created
+#             return Response(ser1.data, status=201)
+#         return Response(serializer.errors, status=400)
+#
 
 
