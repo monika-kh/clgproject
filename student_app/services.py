@@ -179,7 +179,6 @@ class DeleteRelatedStudentService(Service):
 
 
 
-
 # class GetRegisterService(Service):
 #     def process(self):
 #         student_register = Student.objects.all()
