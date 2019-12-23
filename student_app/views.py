@@ -12,7 +12,8 @@ from .serializers import (
     Student1Serializer,
     StudentSerializer,
     # StudentRegisterSerializer
-    LoginInSerializer)
+    #LoginInSerializer)
+)
 from .services import (
     CollegeService,
     CreateStudentService,
@@ -75,9 +76,19 @@ class StudentView(APIView):
         serializer = Student1Serializer(data=student_data)  # when obj is not created
         if serializer.is_valid(raise_exception=True):
             college = CreateStudentService.execute({"student_data": request.data})
-            ser1 = Student1Serializer(college)  # when obj is created
+            ser1 = Student1Serializer(college)         # when obj is created
             return Response(ser1.data, status=201)
         return Response(serializer.errors, status=400)
+
+
+        # def get(self, request, format=None):        #for token
+        #     breakpoint()
+        #     content = {
+        #         'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+        #         'auth': unicode(request.auth),  # None
+        #     }
+        #     return Response(content)
+
 
     def get(self, request, pk=None):  # get students related to a particular college id
         related_student = GetRelatedStudentService.execute({"pk": pk})
@@ -93,10 +104,88 @@ class StudentView(APIView):
         return Response(data={"Message": "deleted"}, status=200)
 
 
-# class LogInView(APIView):
-#     def get(self, request):
-#         breakpoint()
-#         pass
+class LogInView(APIView):
+    def get(self, request):
+        breakpoint()
+
+
+
+    # def post(request):
+    #     username = request.data.get("username")
+    #     password = request.data.get("password")
+    #     if username is None or password is None:
+    #         return Response({'error': 'Please provide both username and password'},
+    #                         status=HTTP_400_BAD_REQUEST)
+    #     user = authenticate(username=username, password=password)
+    #     if not user:
+    #         return Response({'error': 'Invalid Credentials'},
+    #                         status=HTTP_404_NOT_FOUND)
+    #     token, _ = Token.objects.get_or_create(user=user)
+    #     return Response({'token': token.key},
+    #                     status=HTTP_200_OK)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
