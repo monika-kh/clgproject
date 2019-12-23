@@ -45,18 +45,80 @@ class StudentSerializer(serializers.ModelSerializer):  # used when we want show 
         fields = "__all__"
 
 
-class RelatedStudentSerializer(serializers.ModelSerializer):  # serializer used when only clg_id is needed
-    college_student = CollegeSerializer(many=True)
-
-    class Meta:
-        model = Student
-        fields = ("first_name", "last_name", "branch")
 
 
-class StudentRegisterSerializer(serializers.ModelSerializer):
-    # fields='__all'--serializer used when only clg_id is needed
-    college = RelatedCollegeSerializer()
 
-    class Meta:
-        model = Student
-        fields = '__all__'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class LoginInSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Student
+#         fields = ('username', 'password')
+#
+# class AuthUserSerializer(serializers.ModelSerializer):
+#     auth_token = serializers.SerializerMethodField()
+#
+#     class Meta:
+#         model = User
+#         fields = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff')
+#         read_only_fields = ('id', 'is_active', 'is_staff')
+#
+#         User = get_user_model()
+#
+#         class UserLoginSerializer(serializers.Serializer):
+#             email = serializers.CharField(max_length=300, required=True)
+#             password = serializers.CharField(required=True, write_only=True
+#
+#
+#
+#             def get_auth_token(self, obj):
+#                 token = Token.objects.create(user=obj)
+#                 return token.key
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class RelatedStudentSerializer(serializers.ModelSerializer):  # serializer used when only clg_id is needed
+#     college_student = CollegeSerializer(many=True)
+#
+#     class Meta:
+#         model = Student
+#         fields = ("first_name", "last_name", "branch")
+#
+
+# class StudentRegisterSerializer(serializers.ModelSerializer):
+#     # fields='__all'--serializer used when only clg_id is needed
+#     college = RelatedCollegeSerializer()
+#
+#     class Meta:
+#         model = Student
+#         fields = '__all__'
