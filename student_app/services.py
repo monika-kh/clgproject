@@ -71,16 +71,10 @@ class CreateStudentService(Service):
     def process(self):
         data = self.data
         student_data = data.get("student_data")
-        # get college object or college_id from college model or clg_service using student_data
+
         clg_obj = College.objects.get(college_name=data.get("student_data").get("college_name"))
 
-        # student_obj = Student.objects.create(
-        #     college=clg_obj,
-        #     first_name=student_data.get("first_name"),
-        #     last_name=student_data.get("last_name"),
-        #     branch=student_data.get("branch"),
-        #     dob=student_data.get("dob"),
-        # )                                                              #obj created when abstractuser is not used
+
         student_obj = Student.objects.create(
             college=clg_obj,
             first_name=student_data.get('college_student')[0].get('first_name'),
@@ -90,10 +84,9 @@ class CreateStudentService(Service):
             username=student_data.get('college_student')[0].get("username"),
             email=student_data.get('college_student')[0].get("email"),
             address=student_data.get('college_student')[0].get("address"),
-            #password=student_data.get('college_student')[0].get("password"),
-            #college=student_data.get('college_student')[0].get("college")
+            #college=student_data.get('college_student')[0].get("address"),
         )
-        student_obj.set_password("password")
+        student_obj.set_password(student_data.get('college_student')[0].get("password"))
         student_obj.save()
         return student_obj
 

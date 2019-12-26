@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render
-from rest_framework import status
+from rest_framework import status, authentication, permissions
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,6 +33,8 @@ from .services import (
 
 
 class CollegeView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         college_data = request.data
         serializer = CollegeSerializer(data=request.data)
@@ -68,8 +72,13 @@ class CollegeView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+
+
+
+
 class StudentView(APIView):
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         student_data = request.data
@@ -79,15 +88,6 @@ class StudentView(APIView):
             ser1 = Student1Serializer(college)         # when obj is created
             return Response(ser1.data, status=201)
         return Response(serializer.errors, status=400)
-
-
-        # def get(self, request, format=None):        #for token
-        #     breakpoint()
-        #     content = {
-        #         'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-        #         'auth': unicode(request.auth),  # None
-        #     }
-        #     return Response(content)
 
 
     def get(self, request, pk=None):  # get students related to a particular college id
@@ -104,25 +104,13 @@ class StudentView(APIView):
         return Response(data={"Message": "deleted"}, status=200)
 
 
-class LogInView(APIView):
-    def get(self, request):
-        breakpoint()
 
 
 
-    # def post(request):
-    #     username = request.data.get("username")
-    #     password = request.data.get("password")
-    #     if username is None or password is None:
-    #         return Response({'error': 'Please provide both username and password'},
-    #                         status=HTTP_400_BAD_REQUEST)
-    #     user = authenticate(username=username, password=password)
-    #     if not user:
-    #         return Response({'error': 'Invalid Credentials'},
-    #                         status=HTTP_404_NOT_FOUND)
-    #     token, _ = Token.objects.get_or_create(user=user)
-    #     return Response({'token': token.key},
-    #                     status=HTTP_200_OK)
+
+
+
+
 
 
 

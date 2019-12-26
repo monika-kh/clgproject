@@ -7,10 +7,14 @@ urlpatterns = [
     path("college/<int:pk>/", views.CollegeView.as_view(), name="college"),
     path("student/", views.StudentView.as_view()),
     path("student/<int:pk>/", views.StudentView.as_view(), name="student"),
-    path('login_api/', obtain_auth_token, name='api_token_auth'),
-    path("login/", views.LogInView.as_view()),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    #path("login/", views.LogInView.as_view()),
     #path('rest-auth/', include('rest_auth.urls')),
 ]
+
+
+
+
 
 
 
