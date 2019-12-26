@@ -18,8 +18,8 @@ class College1Serializer(serializers.ModelSerializer):
 class Student1Serializer(serializers.ModelSerializer):  # fields='__all'--serializer used when only clg_id is needed
     class Meta:
         model = Student
-        fields = ("first_name", "last_name", "branch","username")
-        #fields = '__all__'
+        #fields = ("first_name", "last_name", "branch","username")
+        fields = '__all__'
         extra_kwargs = {
             'branch': {'default': 'branch'},
             'password': {'default': 'password'},
