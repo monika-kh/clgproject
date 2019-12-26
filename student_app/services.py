@@ -1,5 +1,24 @@
+from django.conf.global_settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+
 from .models import College, Student
 from service_objects.services import Service
+
+
+def send_varification_email(subject, message, email):
+    try:
+        send_mail(
+            subject,
+            message,
+            EMAIL_HOST_USER,
+            [email],
+            html_message=message,
+            fail_silently=False,
+        )
+    except Exception:
+        # DOTO: if email and password not set in settings, We will remove,we will user logger here
+        pass
+
 
 
 class CollegeService(Service):
@@ -88,6 +107,10 @@ class CreateStudentService(Service):
         )
         student_obj.set_password(student_data.get('college_student')[0].get("password"))
         student_obj.save()
+        email = student_obj.email
+        subject = "You got invitation for this email "
+        message = 'Invitation Email for this {0}'.format(email)
+        send_varification_email(subject, message, email)
         return student_obj
 
 

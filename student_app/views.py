@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.core.mail import BadHeaderError, send_mail
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from rest_framework import status, authentication, permissions
 from rest_framework.authtoken.models import Token
@@ -33,7 +35,7 @@ from .services import (
 
 
 class CollegeView(APIView):
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         college_data = request.data
@@ -78,7 +80,8 @@ class CollegeView(APIView):
 
 
 class StudentView(APIView):
-    #permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+
 
     def post(self, request):
         student_data = request.data
@@ -102,6 +105,9 @@ class StudentView(APIView):
     def delete(self, request, pk):
         DeleteRelatedStudentService.execute({'pk': pk})
         return Response(data={"Message": "deleted"}, status=200)
+
+
+
 
 
 

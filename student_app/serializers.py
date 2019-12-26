@@ -22,7 +22,7 @@ class Student1Serializer(serializers.ModelSerializer):  # fields='__all'--serial
         fields = '__all__'
         extra_kwargs = {
             'branch': {'default': 'branch'},
-            'password': {'default': 'password'},
+            'password': {'default': 'password', "write_only": "True"},
             'username': {'default': 'username'}
         }                                                                 # to remove field required error.
 
@@ -44,11 +44,7 @@ class StudentSerializer(serializers.ModelSerializer):  # used when we want show 
         fields = "__all__"
 
 
-# class LoginInSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Student
-#         fields = ('username', 'password')
-#
+
 
 
 
