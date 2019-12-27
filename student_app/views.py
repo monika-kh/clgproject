@@ -29,13 +29,18 @@ from .services import (
     # GetRegisterService,
     # CreateRegisterService,
     DeleteRelatedStudentService,
-    GetEmailService,
+    # GetEmailService,
     send_varification_email
 )
 
 
 # Create your views here.
+from .tasks import send_mail_to_all
 
+#
+# def index(request):
+#     send_mail_to_all.delay(request)
+#     return HttpResponse('done')
 
 class CollegeView(APIView):
     #permission_classes = (IsAuthenticated,)
@@ -115,13 +120,15 @@ class SendEmailView(APIView):
 
          email_msg=request.data.get("message")
          email_sub=request.data.get("subject")
-         students_in = Student.objects.all()
-
-         for student in students_in:
-             email = student.email
-             send_varification_email(email_sub, email_msg, email)
-
+         # students_in = Student.objects.all()
+         #
+         # for student in students_in:
+         #     email = student.email
+         #     send_varification_email(email_sub, email_msg, email)
+         send_mail_to_all.delay(email_msg, email_sub)
          return Response(data={"Message": "success"}, status=200)
+
+
 
 
 

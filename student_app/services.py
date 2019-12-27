@@ -145,11 +145,6 @@ class DeleteRelatedStudentService(Service):
 
 
 
-class GetEmailService(Service):
-    def process(self):
-        email_data = self.data
-        #email =  self.data.get('college_student')[0].get('email')
-        breakpoint()
 
 
 
