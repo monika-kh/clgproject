@@ -28,8 +28,11 @@ from .services import (
     PutCollegeService,
     # GetRegisterService,
     # CreateRegisterService,
-    DeleteRelatedStudentService
+    DeleteRelatedStudentService,
+    GetEmailService,
+    send_varification_email
 )
+
 
 # Create your views here.
 
@@ -105,6 +108,38 @@ class StudentView(APIView):
     def delete(self, request, pk):
         DeleteRelatedStudentService.execute({'pk': pk})
         return Response(data={"Message": "deleted"}, status=200)
+
+
+class SendEmailView(APIView):
+     def post(self, request, pk=None):
+
+         email_msg=request.data.get("message")
+         email_sub=request.data.get("subject")
+         students_in = Student.objects.all()
+
+         for student in students_in:
+             email = student.email
+             send_varification_email(email_sub, email_msg, email)
+
+         return Response(data={"Message": "success"}, status=200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

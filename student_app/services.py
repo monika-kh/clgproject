@@ -74,7 +74,9 @@ class PutCollegeService(Service):
 
 class GetStudentService(Service):
     def process(self):  # get data of particular id of student
+
         std = self.data
+        breakpoint()
         pk = std.get("pk")
         if pk:
             student_gt = Student.objects.get(id=pk)
@@ -107,11 +109,21 @@ class CreateStudentService(Service):
         )
         student_obj.set_password(student_data.get('college_student')[0].get("password"))
         student_obj.save()
+
         email = student_obj.email
         subject = "You got invitation for this email "
         message = 'Invitation Email for this {0}'.format(email)
         send_varification_email(subject, message, email)
         return student_obj
+
+        # to_email = student_obj.email                     # can be directly use send_mail without defining function at the top.
+        # subject = "this is your subject"
+        # message = "Here is message"
+        # send_mail(subject, message, from_email=settings.EMAIL_HOST_USER,recipient_list=[to_email], html_message=message)
+        # return student_obj
+
+
+
 
 
 class GetRelatedStudentService(Service):
@@ -130,6 +142,15 @@ class DeleteRelatedStudentService(Service):
         pk = dlt_data.get('pk')
         std_dlt = Student.objects.get(pk=pk)
         std_dlt.delete()
+
+
+
+class GetEmailService(Service):
+    def process(self):
+        email_data = self.data
+        #email =  self.data.get('college_student')[0].get('email')
+        breakpoint()
+
 
 
 
