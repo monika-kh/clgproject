@@ -129,24 +129,17 @@ class SendEmailView(APIView):
          return Response(data={"Message": "success"}, status=200)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# class IndexView(APIView):
+#     def post(self, request):
+#
+#         a= request.data.get('from_no')
+#         b=request.data.get('to_no')
+#
+#         for i in 2000 :
+#             print(i)
+#         breakpoint()
+#
+#         # from_no =
 
 
 

@@ -9,7 +9,7 @@ urlpatterns = [
     path("student/<int:pk>/", views.StudentView.as_view(), name="student"),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path("send-mail/", views.SendEmailView.as_view()),
-    # path("", views.index, name='index'),
+    #path("index", views.IndexView.as_view(), name='index'),
     #path('rest-auth/', include('rest_auth.urls')),
 ]
 

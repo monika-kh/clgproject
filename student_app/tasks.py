@@ -19,3 +19,6 @@ def send_mail_to_all(email_msg, email_sub):
             fail_silently=False,
         )
 
+# def print_no.()
+
+
