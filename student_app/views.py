@@ -30,14 +30,13 @@ from .services import (
     # CreateRegisterService,
     DeleteRelatedStudentService,
     # GetEmailService,
-    send_varification_email
-)
+    send_varification_email,
+    IndexService,
+    PrintCollegeByNameService)
 
 
 # Create your views here.
-from .tasks import send_mail_to_all#, print_no
-
-
+from .tasks import send_mail_to_all, print_no, print_clgname
 
 
 #
@@ -132,22 +131,31 @@ class SendEmailView(APIView):
          return Response(data={"Message": "success"}, status=200)
 
 
-# class IndexView(APIView):
-#     def post(self, request):
-#
-#         a= request.data.get('from_no')
-#         b= request.data.get('to_no')
-#
-#         print_no.delay(a,b)
-#         return Response(data={"Message":"printed"}, status=200)
-#
-#         # for i in (a,b):
-#         #     print(i)
+class IndexView(APIView):
+    def post(self, request):
+        # print no between 1 10 2000 using celery using service , views and task
+        IndexService.execute({})
+        return Response(data={"Message":"printed"}, status=200)
 
 
 
+        # print no between 1 10 2000 using celery using views and task
+        # for i in (a,b):
+        #     print(i)
+        # print_no.delay(1,2001)
+        # return Response(data={"Message":"printed"}, status=200)
 
 
+
+class PrintCollegeNameView(APIView):
+    def post(self, request, college_name=None, clg_by_name=None):
+        college_data = request.data
+        serializer = CollegeSerializer(data=college_data)
+        if serializer.is_valid(raise_exception=True):
+            college = PrintCollegeByNameService.execute({"college_data":serializer.data})
+            # return Response(serializer.data, status=201)
+
+        return Response(data={"Message":"printed"}, status=200)
 
 
 
