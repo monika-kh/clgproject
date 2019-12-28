@@ -1,7 +1,7 @@
 from celery import shared_task
 from django.conf.global_settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
-from .models import Student
+from .models import Student, College
 
 
 @shared_task
@@ -19,10 +19,21 @@ def send_mail_to_all(email_msg, email_sub):
             fail_silently=False,
         )
 
-# def print_no(a,b):
-#     # a= request.data.get('from_no')
-#     # b=request.data.get('to_no')
-#     for i in (a,b):
-#         print(i)
+@shared_task
+def print_no(a,b):
+    # print no between 1 10 2000 using celery
+
+    for i in range(1,2001):
+        print(i)
+
+
+@shared_task
+def print_clgname(college):
+    for college_name in range (1,11):
+
+        create_obj = College.objects.create(college_name=college.get('college_data').get('college_name'),
+                                        city=college.get('college_data').get('city'),
+                                        state=college.get('college_data').get('state'))
+
 
 
