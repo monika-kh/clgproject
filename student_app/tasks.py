@@ -19,6 +19,10 @@ def send_mail_to_all(email_msg, email_sub):
             fail_silently=False,
         )
 
-# def print_no.()
+# def print_no(a,b):
+#     # a= request.data.get('from_no')
+#     # b=request.data.get('to_no')
+#     for i in (a,b):
+#         print(i)
 
 

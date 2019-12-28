@@ -35,7 +35,10 @@ from .services import (
 
 
 # Create your views here.
-from .tasks import send_mail_to_all
+from .tasks import send_mail_to_all#, print_no
+
+
+
 
 #
 # def index(request):
@@ -133,13 +136,16 @@ class SendEmailView(APIView):
 #     def post(self, request):
 #
 #         a= request.data.get('from_no')
-#         b=request.data.get('to_no')
+#         b= request.data.get('to_no')
 #
-#         for i in 2000 :
-#             print(i)
-#         breakpoint()
+#         print_no.delay(a,b)
+#         return Response(data={"Message":"printed"}, status=200)
 #
-#         # from_no =
+#         # for i in (a,b):
+#         #     print(i)
+
+
+
 
 
 
