@@ -4,6 +4,8 @@ from django.core.mail import send_mail
 from .models import College, Student
 from service_objects.services import Service
 
+from .tasks import print_no, print_clgname
+
 
 def send_varification_email(subject, message, email):
     try:
@@ -23,6 +25,7 @@ def send_varification_email(subject, message, email):
 
 class CollegeService(Service):
     def process(self):
+
         clg_data = self.data
         data = clg_data.get("college_data")
 
@@ -142,6 +145,32 @@ class DeleteRelatedStudentService(Service):
         pk = dlt_data.get('pk')
         std_dlt = Student.objects.get(pk=pk)
         std_dlt.delete()
+
+
+
+class IndexService(Service):
+    def process(self):
+        print_no.delay(1,2001)
+
+
+class PrintCollegeByNameService(Service):
+    def process(self):
+        clgobj = College.objects.all()
+        college = self.data
+        print_clgname.delay(college)
+        # clg_by_name = self.data.get('college_data').get('college_name')
+        # clg_by_city = self.data.get('college_data').get('city')
+        # clg_by_state = self.data.get('college_data').get('state')
+        #
+        # for clg_by_name in range (10):
+        #     create_obj = College.objects.create(college_name=clg_by_name,
+        #                                     city=clg_by_city,
+        #                                     state=clg_by_state)
+              #return create_obj
+
+
+
+
 
 
 
